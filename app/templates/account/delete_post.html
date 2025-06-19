@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Post - The Blogs{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="delete-confirmation">
+            <h1>Delete Post</h1>
+            
+            <div class="warning-message">
+                <p class="warning-text">Are you sure you want to delete the post "{{ post.title }}"?</p>
+                <p class="warning-note">This action cannot be undone.</p>
+            </div>
+            
+            <form method="post" class="delete-form">
+                {% csrf_token %}
+                <div class="profile-actions">
+                    <button type="submit" class="btn btn-primary">Delete Post</button>
+                    <a href="{% url 'account:profile' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 

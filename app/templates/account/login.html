@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login - The Blogs{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'css/forms.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Добавляем CSRF токен ко всем HTMX запросам
+    document.body.addEventListener('htmx:configRequest', function(evt) {
+        evt.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    });
+
+    // Отладочные события HTMX
+    document.body.addEventListener('htmx:beforeRequest', function(evt) {
+        console.log('HTMX beforeRequest:', evt.detail);
+    });
+
+    document.body.addEventListener('htmx:afterRequest', function(evt) {
+        console.log('HTMX afterRequest:', evt.detail);
+    });
+
+    document.body.addEventListener('htmx:responseError', function(evt) {
+        console.log('HTMX responseError:', evt.detail);
+        // Принудительно обновляем содержимое элемента с сообщением
+        document.getElementById('login-message').innerHTML = evt.detail.xhr.response;
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-box">
+        <h2>Login to Your Account</h2>
+        <form method="post" 
+              class="auth-form"
+              hx-post="{% url 'account:login' %}"
+              hx-target="#login-message"
+              hx-swap="innerHTML"
+              hx-indicator="#login-indicator">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" required placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required placeholder="Enter your password">
+            </div>
+            <div id="login-message"></div>
+            <div id="login-indicator" class="htmx-indicator">
+                Loading...
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <p class="auth-link">Don't have an account? <a href="{% url 'account:register' %}">Register here</a></p>
+    </div>
+</div>
+{% endblock %} 

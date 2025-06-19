@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us - The Blogs{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="static-page">
+        <h1>Contact Us</h1>
+        <div class="content-section">
+            <h2>Get in Touch</h2>
+            <p>We'd love to hear from you! Whether you have a question about our platform, need technical support, or want to discuss a partnership, we're here to help.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>Contact Information</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>General Inquiries: <a href="mailto:hello@theblogs.app">hello@theblogs.app</a></p>
+                    <p>Support: <a href="mailto:support@theblogs.app">support@theblogs.app</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <h3>Response Time</h3>
+                    <p>We typically respond to all inquiries within 24-48 hours during business days.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>How do I report inappropriate content?</h3>
+                    <p>You can report inappropriate content by clicking the "Report" button on any post or by emailing us at <a href="mailto:report@theblogs.app">report@theblogs.app</a>.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How can I become a writer?</h3>
+                    <p>Simply create an account and start writing! Visit our <a href="{% url 'blog:create_post' %}">Write a Post</a> page to begin your journey.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you offer technical support?</h3>
+                    <p>Yes, we provide technical support for all users. Contact us at <a href="mailto:support@theblogs.app">support@theblogs.app</a> for assistance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

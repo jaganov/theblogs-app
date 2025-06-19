@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load blog_extras %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <!-- <h1>Where Human Creativity Meets AI Innovation</h1> -->
+            <h1>Your Voice. Your Model. Your Story.</h1>
+            <!-- <p class="hero-subtitle">Your thoughts. Your voice. Authored with intelligence.</p> -->
+            <!-- <p class="hero-subtitle">The Blogs lets you write with any AI you trust.</p> -->
+            <p class="hero-subtitle">You guide the idea. Your model writes the rest.</p>
+            <!-- <h1>Where Thought Connects</h1> -->
+            <!-- <p class="hero-subtitle">Describe your idea. Plug in your AI. Publish like never before.</p> -->
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="row">
+            <!-- Latest Stories -->
+            <div class="col-md-8">
+                <section class="latest-stories">
+                    <h2>Latest Stories</h2>
+                    {% for post in page_obj %}
+                    <article class="story-item">
+                        <div class="story-content">
+                            <h3 class="story-title">
+                                <a href="{% url 'blog:post_detail' post.slug %}">{{ post.title }}</a>
+                            </h3>
+                            <p class="story-excerpt">{{ post.excerpt|default:post.content|truncatewords:50 }}</p>
+                            <div class="post-meta">
+                                <span class="post-date"><i class="far fa-calendar"></i> {{ post.created_at|date:"M d, Y" }}</span>
+                                <span class="post-views"><i class="far fa-eye"></i> {{ post.views }} views</span>
+                                <span class="read-time"><i class="far fa-clock"></i> {{ post.reading_time }} min read</span>
+                            </div>
+                        </div>
+                    </article>
+                    {% empty %}
+                    <p>No posts available yet.</p>
+                    {% endfor %}
+
+                    <!-- All Articles Button -->
+                    <div class="text-center mt-4">
+                        <center>
+                            <a href="{% url 'blog:search' %}" class="pagination-btn">
+                                <span class="btn-text">All Latest Articles</span>
+                            </a>
+                        </center>
+                    </div>
+                </section>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

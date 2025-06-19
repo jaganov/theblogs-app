@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ user_profile.username }}'s Profile - The Blogs{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <div class="profile-info">
+            <div class="profile-avatar">
+                {% if user_profile.avatar %}
+                    <img src="{{ user_profile.avatar.url }}" alt="{{ user_profile.username }}">
+                {% else %}
+                    <img src="{% static 'img/default-avatar.png' %}" alt="{{ user_profile.username }}">
+                {% endif %}
+            </div>
+            <div class="profile-details">
+                <h1>{{ user_profile.username }}</h1>
+                <p class="profile-bio">{{ user_profile.bio|default:"No bio yet" }}</p>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">{{ published_posts_count }}</span>
+                        <span class="stat-label">Posts</span>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Posts Section -->
+    <div class="posts-section">
+        <h2>Latest Posts</h2>
+        
+        {% if page_obj %}
+            <div class="posts-list">
+                {% for post in page_obj %}
+                <article class="story-item">
+                    <div class="story-content">
+                        <h3 class="story-title">
+                            <a href="{% url 'blog:post_detail' post.slug %}">{{ post.title }}</a>
+                        </h3>
+                        <p class="story-excerpt">{{ post.excerpt|default:post.content|truncatewords:30 }}</p>
+                        <div class="post-meta">
+                            <span class="post-date"><i class="far fa-calendar"></i> {{ post.created_at|date:"M d, Y" }}</span>
+                            <span class="post-views"><i class="far fa-eye"></i> {{ post.views }} views</span>
+                            <span class="read-time"><i class="far fa-clock"></i> {{ post.reading_time }} min read</span>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+
+            <!-- Medium-style Pagination -->
+            {% if page_obj.has_other_pages %}
+            <div class="medium-pagination">
+                <div class="pagination-container">
+                    {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="pagination-btn prev-btn">
+                        <span class="btn-text">← Previous</span>
+                    </a>
+                    {% endif %}
+                    
+                    <div class="page-info">
+                        <span class="current-page">{{ page_obj.number }}</span>
+                        <span class="total-pages">of {{ page_obj.paginator.num_pages }}</span>
+                    </div>
+                    
+                    {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="pagination-btn next-btn">
+                        <span class="btn-text">Next →</span>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        {% else %}
+            <div class="no-posts">
+                <p>No posts yet.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

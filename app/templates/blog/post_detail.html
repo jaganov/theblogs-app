@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load markdown_extras %}
+
+{% block title %}{{ post.title }} - The Blogs{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<article class="post-detail">
+    <header class="post-header">
+        <div class="post-meta">
+            <div class="author-info">
+                {% if post.author.avatar %}
+                    <img src="{{ post.author.avatar.url }}" alt="{{ post.author.username }}" class="author-avatar">
+                {% else %}
+                    <img src="{% static 'img/default-avatar.png' %}" alt="Default avatar" class="author-avatar">
+                {% endif %}
+                <div class="author-details">
+                    <a href="{% url 'blog:profile' post.author.username %}" class="author-name">{{ post.author.username }}</a>
+                    <span class="post-date"><i class="far fa-calendar-alt"></i> {{ post.created_at|date:"F j, Y" }}</span>
+                </div>
+            </div>
+            <div class="reading-stats">
+                {% if post.is_draft %}
+                    <span class="draft-badge">Draft</span>
+                {% endif %}
+                <span class="reading-time"><i class="far fa-clock"></i> {{ post.reading_time }} min read</span>
+                <span class="views-count">
+                    <i class="far fa-eye"></i> {{ post.views }} views
+                </span>
+            </div>
+        </div>
+        <h1 class="post-title">{{ post.title }}</h1>
+        {% if post.excerpt %}
+            <p class="post-excerpt">{{ post.excerpt }}</p>
+        {% endif %}
+    </header>
+
+    {% if post.featured_image %}
+        <figure class="post-featured-image">
+            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+            {% if post.image_caption %}
+                <figcaption>{{ post.image_caption }}</figcaption>
+            {% endif %}
+        </figure>
+    {% endif %}
+
+    <div class="post-content">
+        {{ post.content|markdown|safe }}
+    </div>
+
+    <footer class="post-footer">
+   
+        <div class="post-actions">
+            <div class="share-buttons">
+                <button class="share-btn" onclick="shareOnTwitter()">
+                    <i class="fab fa-twitter"></i> Share on Twitter
+                </button>
+                <button class="share-btn" onclick="shareOnFacebook()">
+                    <i class="fab fa-facebook"></i> Share on Facebook
+                </button>
+                <button class="share-btn" onclick="copyLink()">
+                    <i class="fas fa-link"></i> Copy Link
+                </button>
+            </div>
+        </div>
+
+        {% if related_posts %}
+            <section class="related-posts">
+                <h2>Related Posts</h2>
+                <div class="related-posts-grid">
+                    {% for related in related_posts %}
+                        <article class="related-post">
+                            {% if related.image %}
+                                <img src="{{ related.image.url }}" alt="{{ related.title }}">
+                            {% endif %}
+                            <h3><a href="{% url 'blog:post_detail' related.slug %}">{{ related.title }}</a></h3>
+                            <span class="post-date">{{ related.created_at|date:"M d, Y" }}</span>
+                        </article>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+    </footer>
+</article>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function shareOnTwitter() {
+    const text = encodeURIComponent("{{ post.title }}");
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+}
+
+function shareOnFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+}
+
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('Link copied to clipboard!');
+    });
+}
+</script>
+{% endblock %} 

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Register - The Blogs{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'css/forms.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-box">
+        <h2>Create an Account</h2>
+        <form method="post" enctype="multipart/form-data" class="auth-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" required placeholder="Choose a username">
+            </div>
+            <div class="form-group">
+                <label for="password1">Password</label>
+                <input type="password" name="password1" id="password1" required placeholder="Create a password">
+            </div>
+            <div class="form-group">
+                <label for="password2">Confirm Password</label>
+                <input type="password" name="password2" id="password2" required placeholder="Confirm your password">
+            </div>
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea name="bio" id="bio" rows="4" placeholder="Tell us about yourself"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        <p class="auth-link">Already have an account? <a href="{% url 'account:login' %}">Login here</a></p>
+    </div>
+</div>
+{% endblock %} 

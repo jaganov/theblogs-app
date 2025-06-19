@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ user.username }}'s Profile - The Blogs{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-info">
+            <div class="profile-avatar">
+                {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}" alt="{{ user.username }}'s avatar">
+                {% else %}
+                    <img src="{% static 'img/default-avatar.png' %}" alt="Default avatar">
+                {% endif %}
+            </div>
+            <div class="profile-details">
+                <h1>{{ user.username }}</h1>
+                <p class="profile-bio">{{ user.bio|default:"No bio yet" }}</p>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <span class="stat-value">{{ published_count }}</span>
+                        <span class="stat-label">Published</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">{{ draft_count }}</span>
+                        <span class="stat-label">Drafts</span>
+                    </div>
+                </div>
+                
+                <div class="profile-actions btn-group">
+                    <a href="{% url 'account:edit_profile' %}" class="btn btn-outline">Edit Profile</a>
+                    <a href="{% url 'blog:create_post' %}" class="btn btn-primary">Create New Post</a>
+                    <a href="{% url 'account:logout' %}" class="btn btn-danger">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-content">
+        <div class="posts-filter">
+            <a href="?status=published" class="filter-link {% if current_filter == 'published' %}active{% endif %}">
+                Published ({{ published_count }})
+            </a>
+            <a href="?status=draft" class="filter-link {% if current_filter == 'draft' %}active{% endif %}">
+                Drafts ({{ draft_count }})
+            </a>
+        </div>
+
+        <div class="posts-list">
+            {% for post in posts %}
+            <article class="post-item">
+                <div class="post-content">
+                    <h2 class="post-title">
+                        <a href="{% url 'blog:post_detail' post.slug %}">{{ post.title }}</a>
+                        {% if post.status == 'draft' %}
+                        <span class="post-status draft">Draft</span>
+                        {% endif %}
+                    </h2>
+                    <p class="post-excerpt">{{ post.excerpt|default:post.content|truncatewords:30 }}</p>
+                    <div class="post-meta">
+                        <span class="post-date"><i class="far fa-calendar"></i> {{ post.created_at|date:"M d, Y" }}</span>
+                        <span class="post-views"><i class="far fa-eye"></i> {{ post.views }} views</span>
+                        <span class="read-time"><i class="far fa-clock"></i> {{ post.reading_time }} min read</span>
+                    </div>
+                    <div class="post-actions">
+                        <a href="{% url 'account:edit_post' post.slug %}" class="btn btn-sm btn-outline">Edit</a>
+                        <a href="{% url 'account:delete_post' post.slug %}" class="btn btn-sm btn-danger">Delete</a>
+                    </div>
+                </div>
+            </article>
+            {% empty %}
+            <p class="no-posts">No posts found.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Medium-style Pagination -->
+        {% if posts.has_other_pages %}
+        <div class="medium-pagination">
+            <div class="pagination-container">
+                {% if posts.has_previous %}
+                <a href="?status={{ current_filter }}&page={{ posts.previous_page_number }}" class="pagination-btn prev-btn">
+                    <span class="btn-text">← Previous</span>
+                </a>
+                {% endif %}
+                
+                <div class="page-info">
+                    <span class="current-page">{{ posts.number }}</span>
+                    <span class="total-pages">of {{ posts.paginator.num_pages }}</span>
+                </div>
+                
+                {% if posts.has_next %}
+                <a href="?status={{ current_filter }}&page={{ posts.next_page_number }}" class="pagination-btn next-btn">
+                    <span class="btn-text">Next →</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 
