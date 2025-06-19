@@ -235,9 +235,6 @@ Below are screenshots demonstrating the main features and UI of the application 
 ![Admin Blog Detail](screenshots/admin_blog_detail.png)
 *Admin panel: blog detail view.*
 
-![Admin Login](screenshots/admin_login.png)
-*Admin panel: login page.*
-
 ---
 
 ## License
