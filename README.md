@@ -1,57 +1,5 @@
 # The Blogs - Modern Blog Platform
 
-## Quick Start
-
-### Local Development (with Docker)
-1. **Clone the repository:**
-
-```bash
-git clone <repository-url>
-cd theblogs_app
-```
-
-2. **Create a `.env` file** in the root directory (see [Production Setup](./PRODUCTION_SETUP.md) for required variables).
-
-3. **Start the stack:**
-
-```bash
-docker compose up -d
-```
-
-4. **Apply migrations:**
-
-```bash
-docker compose exec web uv run python manage.py migrate
-```
-
-5. **Create a superuser:**
-
-```bash
-docker compose exec web uv run python manage.py createsuperuser
-```
-
-6. **(Optional) Generate test data:**
-
-```bash
-docker compose exec web uv run python manage.py generate_users
-docker compose exec web uv run python manage.py generate_posts
-```
-
-For full production setup, see [PRODUCTION_SETUP.md](./PRODUCTION_SETUP.md).
-
----
-
-## Reset & Cleanup
-
-To fully reset the project (database, media, etc.), see [RESET_INSTRUCTIONS.md](./RESET_INSTRUCTIONS.md). This guide covers:
-
-- Automated and manual cleanup scripts for Windows/Linux/Mac
-- How to remove Docker volumes and media files
-- How to re-initialize the database and superuser
-- Useful Docker and database commands
-
----
-
 ## Project Overview
 
 **The Blogs** is a modern web application for creating and managing blogs. It features:
@@ -98,108 +46,6 @@ To fully reset the project (database, media, etc.), see [RESET_INSTRUCTIONS.md](
 
 ---
 
-## Screenshots Gallery
-Below are screenshots demonstrating the main features and UI of the application:
-
-![Admin Blog Detail](screenshots/admin_blog_detail.png)
-*Admin panel: blog detail view.*
-
-![Admin Blogs](screenshots/admin_blogs.png)
-*Admin panel: list of blogs.*
-
-![Admin Users](screenshots/admin_users.png)
-*Admin panel: list of users.*
-
-![Admin Login](screenshots/admin_login.png)
-*Admin panel: login page.*
-
-![Authors List](screenshots/authors_list.png)
-*Public: authors directory.*
-
-![Contact](screenshots/contact.png)
-*Public: contact page.*
-
-![Create Post](screenshots/create_post.png)
-*User: create new post.*
-
-![Delete Post](screenshots/delete_post.png)
-*User: delete post confirmation.*
-
-![Edit Post](screenshots/edit_post.png)
-*User: edit post form.*
-
-![Edit Profile](screenshots/edit_profile.png)
-*User: edit profile form.*
-
-![Index](screenshots/index.png)
-*Public: main blog feed.*
-
-![Login](screenshots/login.png)
-*User: login form.*
-
-![Post Detail](screenshots/post_detail.png)
-*Public: post detail view.*
-
-![Privacy Policy](screenshots/privacy_policy.png)
-*Public: privacy policy.*
-
-![Profile](screenshots/profile.png)
-*User: profile page.*
-
-![Register](screenshots/register.png)
-*User: registration form.*
-
-![Search](screenshots/search.png)
-*Public: search results.*
-
-![Terms of Service](screenshots/terms_of_service.png)
-*Public: terms of service.*
-
----
-
-## Main Endpoints
-
-### Blog App
-
-- `/` — Main blog feed
-- `/create/` — Create a new post
-- `/search/` — Search posts
-- `/authors/` — List of authors
-- `/@<username>/` — Author profile
-- `/api/days-with-posts/` — Calendar API (days with posts)
-- `/privacy-policy/` — Privacy policy
-- `/terms-of-service/` — Terms of service
-- `/contact/` — Contact page
-- `/<post_slug>/` — Post detail
-
-### Account App
-
-- `/account/register/` — Register
-- `/account/login/` — Login
-- `/account/logout/` — Logout
-- `/account/profile/` — User profile
-- `/account/profile/edit/` — Edit profile
-- `/account/profile/posts/<post_slug>/edit/` — Edit post
-- `/account/profile/posts/<post_slug>/delete/` — Delete post
-
-### Admin & Health
-
-- `/admin/` — Django admin panel
-- `/health/` — Health check endpoint
-
----
-
-## Test Data Generation
-
-The project includes management commands for generating test users and posts with avatars and images:
-
-- `python manage.py generate_users [--avatar-chance 0.8]` — Create test users (see [README_text_generation.md](./app/blog/management/commands/README_text_generation.md) for details)
-- `python manage.py generate_posts [--image-chance 1.0]` — Create test posts
-
-See [README_text_generation.md](./app/blog/management/commands/README_text_generation.md) for full usage, parameters, and features.
-
----
-
 ## Assignment Requirements Checklist
 
 This project fully implements all requirements from the assignment:
@@ -225,11 +71,172 @@ This project fully implements all requirements from the assignment:
 
 ---
 
+## Quick Start
+
+> **Note:** Creating a `.env` file is optional for local development. The project uses default parameters. See [Production Setup](./PRODUCTION_SETUP.md) to override defaults for production.
+
+### Local Development (with Docker)
+1. **Clone the repository:**
+
+```bash
+git clone <repository-url>
+cd theblogs_app
+```
+
+2. **(Optional) Create a `.env` file** in the root directory (see [Production Setup](./PRODUCTION_SETUP.md) for required variables).
+
+3. **Start the stack:**
+
+```bash
+docker compose up -d
+```
+
+4. **Apply migrations:**
+
+```bash
+docker compose exec web uv run python manage.py migrate
+```
+
+5. **Create a superuser:**
+
+```bash
+docker compose exec web uv run python manage.py createsuperuser
+```
+
+6. **Generate test data:**
+
+```bash
+docker compose exec web uv run python manage.py generate_users --avatar-chance 1.0   # 100% users with avatars
+docker compose exec web uv run python manage.py generate_posts --image-chance 0.5    # 50% posts with images
+```
+
+See [README_text_generation.md](./app/blog/management/commands/README_text_generation.md) for details on test data generation mechanics and parameters.
+
+For full production setup, see [PRODUCTION_SETUP.md](./PRODUCTION_SETUP.md).
+
+---
+
+## Test Data Generation
+
+The project includes management commands for generating test users and posts with avatars and images. Example usage:
+
+```bash
+python manage.py generate_users --avatar-chance 0.8   # 80% users with avatars
+python manage.py generate_posts --image-chance 1.0    # 100% posts with images
+```
+
+See [README_text_generation.md](./app/blog/management/commands/README_text_generation.md) for full usage, parameters, and features.
+
+---
+
+## Reset & Cleanup
+
+To fully reset the project (database, media, etc.), see [RESET_INSTRUCTIONS.md](./RESET_INSTRUCTIONS.md). This guide covers:
+
+- Automated and manual cleanup scripts for Windows/Linux/Mac
+- How to remove Docker volumes and media files
+- How to re-initialize the database and superuser
+- Useful Docker and database commands
+
+---
+
+## Main Endpoints
+
+### Blog App
+
+- `/` — Main blog feed
+- `/search/` — Search posts
+- `/authors/` — List of authors
+- `/@<username>/` — Author profile
+- `/create/` — Create a new post
+- `/api/days-with-posts/` — Calendar API (days with posts)
+- `/privacy-policy/` — Privacy policy
+- `/terms-of-service/` — Terms of service
+- `/contact/` — Contact page
+- `/<post_slug>/` — Post detail
+
+### Account App
+
+- `/account/register/` — Register
+- `/account/login/` — Login
+- `/account/logout/` — Logout
+- `/account/profile/` — User profile
+- `/account/profile/edit/` — Edit profile
+- `/account/profile/posts/<post_slug>/edit/` — Edit post
+- `/account/profile/posts/<post_slug>/delete/` — Delete post
+
+### Admin & Health
+
+- `/admin/` — Django admin panel
+- `/health/` — Health check endpoint
+
+---
+
 ## Documentation
 
 - [Production Setup](./PRODUCTION_SETUP.md): Full production deployment guide
 - [Reset Instructions](./RESET_INSTRUCTIONS.md): Full cleanup/reset guide
 - [Test Data Generation](./app/blog/management/commands/README_text_generation.md): Details on test data commands
+
+---
+
+## Screenshots Gallery
+
+Below are screenshots demonstrating the main features and UI of the application (in logical user flow order):
+
+![Index](screenshots/index.png)
+*Main blog feed.*
+
+![Search](screenshots/search.png)
+*Search results.*
+
+![Authors List](screenshots/authors_list.png)
+*Authors directory.*
+
+![Post Detail](screenshots/post_detail.png)
+*Post detail view.*
+
+![Register](screenshots/register.png)
+*User registration form.*
+
+![Login](screenshots/login.png)
+*User login form.*
+
+![Profile](screenshots/profile.png)
+*User profile page.*
+
+![Edit Profile](screenshots/edit_profile.png)
+*Edit profile form.*
+
+![Create Post](screenshots/create_post.png)
+*Create new post.*
+
+![Edit Post](screenshots/edit_post.png)
+*Edit post form.*
+
+![Delete Post](screenshots/delete_post.png)
+*Delete post confirmation.*
+
+![Contact](screenshots/contact.png)
+*Contact page.*
+
+![Privacy Policy](screenshots/privacy_policy.png)
+*Privacy policy.*
+
+![Terms of Service](screenshots/terms_of_service.png)
+*Terms of service.*
+
+![Admin Blogs](screenshots/admin_blogs.png)
+*Admin panel: main blogs list.*
+
+![Admin Users](screenshots/admin_users.png)
+*Admin panel: users list.*
+
+![Admin Blog Detail](screenshots/admin_blog_detail.png)
+*Admin panel: blog detail view.*
+
+![Admin Login](screenshots/admin_login.png)
+*Admin panel: login page.*
 
 ---
 
