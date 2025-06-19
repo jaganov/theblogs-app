@@ -4,27 +4,37 @@
 
 ### Local Development (with Docker)
 1. **Clone the repository:**
-   ```bash
+
+```bash
 git clone <repository-url>
 cd theblogs_app
-```git
+```
+
 2. **Create a `.env` file** in the root directory (see [Production Setup](./PRODUCTION_SETUP.md) for required variables).
+
 3. **Start the stack:**
-   ```bash
+
+```bash
 docker compose up -d
 ```
+
 4. **Apply migrations:**
-   ```bash
+
+```bash
 docker compose exec web uv run python manage.py migrate
 ```
+
 5. **Create a superuser:**
-   ```bash
+
+```bash
 docker compose exec web uv run python manage.py createsuperuser
 ```
+
 6. **(Optional) Generate test data:**
-   ```bash
+
+```bash
 docker compose exec web uv run python manage.py generate_users
-   docker compose exec web uv run python manage.py generate_posts
+docker compose exec web uv run python manage.py generate_posts
 ```
 
 For full production setup, see [PRODUCTION_SETUP.md](./PRODUCTION_SETUP.md).
@@ -34,6 +44,7 @@ For full production setup, see [PRODUCTION_SETUP.md](./PRODUCTION_SETUP.md).
 ## Reset & Cleanup
 
 To fully reset the project (database, media, etc.), see [RESET_INSTRUCTIONS.md](./RESET_INSTRUCTIONS.md). This guide covers:
+
 - Automated and manual cleanup scripts for Windows/Linux/Mac
 - How to remove Docker volumes and media files
 - How to re-initialize the database and superuser
@@ -44,6 +55,7 @@ To fully reset the project (database, media, etc.), see [RESET_INSTRUCTIONS.md](
 ## Project Overview
 
 **The Blogs** is a modern web application for creating and managing blogs. It features:
+
 - User registration, authentication, and profile management
 - Blog post creation, editing, and search (with PostgreSQL Full-Text Search)
 - Calendar-based post filtering
@@ -52,6 +64,7 @@ To fully reset the project (database, media, etc.), see [RESET_INSTRUCTIONS.md](
 - Dockerized deployment
 
 ### Architecture
+
 - **Backend:** Django 5, Python 3, PostgreSQL 16
 - **Frontend:** HTML5, CSS3, Vanilla JS, HTMX
 - **DevOps:** Docker, Docker Compose, Nginx (production)
@@ -62,6 +75,7 @@ To fully reset the project (database, media, etc.), see [RESET_INSTRUCTIONS.md](
 ---
 
 ## Features
+
 - List and search all blog posts (sorted by date)
 - Author directory and filtering
 - Calendar search for posts by date
@@ -75,6 +89,7 @@ To fully reset the project (database, media, etc.), see [RESET_INSTRUCTIONS.md](
 ---
 
 ## Current Limitations
+
 - **No adaptive (responsive) layout**: The UI is not mobile-friendly.
 - **No asset compression/PageSpeed optimization**: Static files are not minified or optimized.
 - **No dynamic loading/infinite scroll**: All content loads at once; no lazy loading or infinite scroll.
@@ -86,58 +101,58 @@ To fully reset the project (database, media, etc.), see [RESET_INSTRUCTIONS.md](
 ## Screenshots Gallery
 Below are screenshots demonstrating the main features and UI of the application:
 
-![Admin Blog Detail](screenshots/admin_blog_detail.png)  
+![Admin Blog Detail](screenshots/admin_blog_detail.png)
 *Admin panel: blog detail view.*
 
-![Admin Blogs](screenshots/admin_blogs.png)  
+![Admin Blogs](screenshots/admin_blogs.png)
 *Admin panel: list of blogs.*
 
-![Admin Users](screenshots/admin_users.png)  
+![Admin Users](screenshots/admin_users.png)
 *Admin panel: list of users.*
 
-![Admin Login](screenshots/admin_login.png)  
+![Admin Login](screenshots/admin_login.png)
 *Admin panel: login page.*
 
-![Authors List](screenshots/authors_list.png)  
+![Authors List](screenshots/authors_list.png)
 *Public: authors directory.*
 
-![Contact](screenshots/contact.png)  
+![Contact](screenshots/contact.png)
 *Public: contact page.*
 
-![Create Post](screenshots/create_post.png)  
+![Create Post](screenshots/create_post.png)
 *User: create new post.*
 
-![Delete Post](screenshots/delete_post.png)  
+![Delete Post](screenshots/delete_post.png)
 *User: delete post confirmation.*
 
-![Edit Post](screenshots/edit_post.png)  
+![Edit Post](screenshots/edit_post.png)
 *User: edit post form.*
 
-![Edit Profile](screenshots/edit_profile.png)  
+![Edit Profile](screenshots/edit_profile.png)
 *User: edit profile form.*
 
-![Index](screenshots/index.png)  
+![Index](screenshots/index.png)
 *Public: main blog feed.*
 
-![Login](screenshots/login.png)  
+![Login](screenshots/login.png)
 *User: login form.*
 
-![Post Detail](screenshots/post_detail.png)  
+![Post Detail](screenshots/post_detail.png)
 *Public: post detail view.*
 
-![Privacy Policy](screenshots/privacy_policy.png)  
+![Privacy Policy](screenshots/privacy_policy.png)
 *Public: privacy policy.*
 
-![Profile](screenshots/profile.png)  
+![Profile](screenshots/profile.png)
 *User: profile page.*
 
-![Register](screenshots/register.png)  
+![Register](screenshots/register.png)
 *User: registration form.*
 
-![Search](screenshots/search.png)  
+![Search](screenshots/search.png)
 *Public: search results.*
 
-![Terms of Service](screenshots/terms_of_service.png)  
+![Terms of Service](screenshots/terms_of_service.png)
 *Public: terms of service.*
 
 ---
@@ -145,6 +160,7 @@ Below are screenshots demonstrating the main features and UI of the application:
 ## Main Endpoints
 
 ### Blog App
+
 - `/` — Main blog feed
 - `/create/` — Create a new post
 - `/search/` — Search posts
@@ -157,6 +173,7 @@ Below are screenshots demonstrating the main features and UI of the application:
 - `/<post_slug>/` — Post detail
 
 ### Account App
+
 - `/account/register/` — Register
 - `/account/login/` — Login
 - `/account/logout/` — Logout
@@ -166,6 +183,7 @@ Below are screenshots demonstrating the main features and UI of the application:
 - `/account/profile/posts/<post_slug>/delete/` — Delete post
 
 ### Admin & Health
+
 - `/admin/` — Django admin panel
 - `/health/` — Health check endpoint
 
@@ -174,6 +192,7 @@ Below are screenshots demonstrating the main features and UI of the application:
 ## Test Data Generation
 
 The project includes management commands for generating test users and posts with avatars and images:
+
 - `python manage.py generate_users [--avatar-chance 0.8]` — Create test users (see [README_text_generation.md](./app/blog/management/commands/README_text_generation.md) for details)
 - `python manage.py generate_posts [--image-chance 1.0]` — Create test posts
 
@@ -207,6 +226,7 @@ This project fully implements all requirements from the assignment:
 ---
 
 ## Documentation
+
 - [Production Setup](./PRODUCTION_SETUP.md): Full production deployment guide
 - [Reset Instructions](./RESET_INSTRUCTIONS.md): Full cleanup/reset guide
 - [Test Data Generation](./app/blog/management/commands/README_text_generation.md): Details on test data commands
@@ -214,4 +234,5 @@ This project fully implements all requirements from the assignment:
 ---
 
 ## License
+
 MIT License (see LICENSE file if present)
