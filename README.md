@@ -7,7 +7,7 @@
    ```bash
 git clone <repository-url>
 cd theblogs_app
-```
+```git
 2. **Create a `.env` file** in the root directory (see [Production Setup](./PRODUCTION_SETUP.md) for required variables).
 3. **Start the stack:**
    ```bash
@@ -178,6 +178,31 @@ The project includes management commands for generating test users and posts wit
 - `python manage.py generate_posts [--image-chance 1.0]` — Create test posts
 
 See [README_text_generation.md](./app/blog/management/commands/README_text_generation.md) for full usage, parameters, and features.
+
+---
+
+## Assignment Requirements Checklist
+
+This project fully implements all requirements from the assignment:
+
+- **Display all blog posts sorted by date:**
+  - Implemented on the main page (`/`), newest posts first.
+- **Display the list of authors:**
+  - Implemented at `/authors/`.
+- **Show only the blog posts by a selected author:**
+  - Implemented via author profile pages (`/@username/`).
+- **Calendar date selection to filter posts:**
+  - Implemented with a calendar and `/api/days-with-posts/`.
+- **User registration and post creation:**
+  - Implemented at `/account/register/` and `/create/`.
+- **Search for blog posts by query:**
+  - Implemented at `/search/` using PostgreSQL Full-Text Search.
+- **Each post has an author, title, content, and date:**
+  - Enforced by the data model.
+- **Initial data: authors and posts:**
+  - Provided by test data generation commands.
+- **Pagination with "Next" and "Previous" links:**
+  - Implemented in all post lists and search results.
 
 ---
 
