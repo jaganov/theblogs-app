@@ -5,10 +5,10 @@ from django.conf.urls.static import static
 from django.http import HttpResponse
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
+
     path('', include('blog.urls'), name="blog"),
     path('account/', include('account.urls'), name="account"),
-
-    path('admin/', admin.site.urls),
 
     path("health/", lambda r: HttpResponse("ok")),
     # While it is still under construction, we have to make it invisible for search robots. After we will update it.
@@ -27,3 +27,5 @@ The Blogs Dashboard
 """
 admin.site.site_title = "The Blogs Dashboard"
 admin.site.index_title = "Welcome to The Blogs Dashboard"
+
+handler404 = 'app.views.custom_404_view'

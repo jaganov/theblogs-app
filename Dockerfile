@@ -4,7 +4,6 @@ FROM python:3.13-slim
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV DJANGO_SETTINGS_MODULE=app.settings
 
 # Install system dependencies
 RUN apt-get update \
@@ -60,7 +59,7 @@ RUN echo '#!/bin/bash\n\
 echo "Checking database connection..."\n\
 uv run python check_db.py\n\
 echo "Starting Django application..."\n\
-uv run uvicorn app.asgi:application --host 0.0.0.0 --port 8000 --workers 4\n\
+uv run gunicorn app.wsgi:application --bind 0.0.0.0:8000 --workers 4\n\
 ' > /app/app/start.sh && chmod +x /app/app/start.sh
 
 # Run with startup script

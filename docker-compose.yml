@@ -38,7 +38,7 @@ services:
       - DB_PASSWORD=${POSTGRES_PASSWORD:-postgres}
       - DB_HOST=postgres
       - DB_PORT=5432
-      - DJANGO_SETTINGS_MODULE=app.settings
+      # - DJANGO_SETTINGS_MODULE=app.settings
       - DEBUG=False
       - ALLOWED_HOSTS=localhost,127.0.0.1,web
       - SECRET_KEY=${SECRET_KEY:-your-secret-key-here}

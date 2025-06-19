@@ -1,12 +1,12 @@
 {
-  "DEBUG": 1,
+  "DEBUG": "false",
   "DJANGO_LEVEL": "DEBUG",
   "SECRET_KEY":"@0^-=8yxq9fsj6*(6x+d5oasxxgcqckte5#%ql=gm*dt*ms=yj",
   "DJANGO_ALLOWED_HOSTS":"*",
   "DB_NAME":"theblogs",
   "DB_USER":"postgres",
   "DB_PASSWORD":"postgres",
-  "DB_HOST":"postgres",
+  "DB_HOST":"localhost",
   "DB_PORT": 5432,
   "DB_SCHEME": "app"
 }
