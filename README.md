@@ -97,6 +97,9 @@ docker compose up -d
 docker compose exec web uv run python manage.py migrate
 ```
 
+```bash
+docker compose exec web uv run python manage.py collectstatic
+```
 5. **Create a superuser:**
 
 ```bash
