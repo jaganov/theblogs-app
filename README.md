@@ -22,6 +22,19 @@
 
 ---
 
+## Live Demo
+
+🌐 **Live Application:** [https://theblogs.app/](https://theblogs.app/)
+
+The project is successfully deployed and running in production with:
+- SSL certificate (HTTPS)
+- Nginx reverse proxy
+- PostgreSQL database
+- Automated deployment via GitHub Actions
+- Regular backups and monitoring
+
+---
+
 ## Features
 
 - List and search all blog posts (sorted by date)
@@ -119,6 +132,50 @@ For full production setup, see [PRODUCTION_SETUP.md](./PRODUCTION_SETUP.md).
 
 ---
 
+## Deployment
+
+### Production Deployment
+
+The project is designed for easy deployment to production environments. The current live deployment at [https://theblogs.app/](https://theblogs.app/) demonstrates the production setup.
+
+#### Deployment Options:
+
+1. **Simple Production Setup** - [PRODUCTION_SETUP.md](./PRODUCTION_SETUP.md)
+   - Basic production configuration with Docker Compose
+   - Nginx reverse proxy
+   - SSL certificate setup
+   - Environment variable configuration
+
+2. **Full Production Deployment** - [DEPLOY_SETUP.md](./DEPLOY_SETUP.md)
+   - Complete VPS deployment guide
+   - Ubuntu server setup
+   - Automated deployment via GitHub Actions
+   - Backup and monitoring systems
+   - Security hardening
+
+#### Key Production Features:
+- ✅ SSL/HTTPS encryption
+- ✅ Nginx reverse proxy with caching
+- ✅ PostgreSQL database with connection pooling
+- ✅ Static and media file serving
+- ✅ Rate limiting and security headers
+- ✅ Health checks and monitoring
+- ✅ Automated backups
+- ✅ Docker containerization
+- ✅ Environment-based configuration
+
+#### Deployment Steps (General):
+1. **Server Setup**: Configure Ubuntu VPS with Docker and Nginx
+2. **Domain Configuration**: Point domain to server IP
+3. **SSL Certificate**: Obtain Let's Encrypt certificate
+4. **Application Deployment**: Deploy using Docker Compose
+5. **Database Setup**: Run migrations and create superuser
+6. **Monitoring**: Configure logs and health checks
+
+For detailed deployment instructions, see [DEPLOY_SETUP.md](./DEPLOY_SETUP.md).
+
+---
+
 ## Test Data Generation
 
 The project includes management commands for generating test users and posts with avatars and images. Example usage:
@@ -177,7 +234,8 @@ To fully reset the project (database, media, etc.), see [RESET_INSTRUCTIONS.md](
 
 ## Documentation
 
-- [Production Setup](./PRODUCTION_SETUP.md): Full production deployment guide
+- [Production Setup](./PRODUCTION_SETUP.md): Basic production deployment guide
+- [Deploy Setup](./DEPLOY_SETUP.md): Complete VPS deployment guide with automation
 - [Reset Instructions](./RESET_INSTRUCTIONS.md): Full cleanup/reset guide
 - [Test Data Generation](./app/blog/management/commands/README_text_generation.md): Details on test data commands
 
